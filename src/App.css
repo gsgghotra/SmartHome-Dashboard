@@ -100,13 +100,14 @@
 }
 
 .homeBtn:hover{
-  background-color: #1f1f1f;
-  border-color: #3b3b3b;
+  background-color: #1f1f1f !important;
+  border-color: #3b3b3b !important;
 }
 
-.homeBtn:active, .homeBtn:focus{
-  background-color: #1f1f1f !important;
-  border: 1px solid white !important;
+
+.homeBtn:active, .homeBtn:visited, .homeBtn:focus{
+  border: 1px solid gray;
+  background-color: black !important;
 }
 
 .label{
