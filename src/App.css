@@ -85,6 +85,7 @@
   justify-content: space-around;
   grid-auto-flow: column;
 }
+
 .homeBtn {
   margin: 5px;
   padding: 5px;
@@ -94,8 +95,18 @@
   border: 1px solid gray;
   background-color: black;
   color: aliceblue;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: rgb(203 203 203 / 34%) 0px 4px 12px;
+}
+
+.homeBtn:hover{
+  background-color: #1f1f1f;
+  border-color: #3b3b3b;
+}
+
+.homeBtn:active, .homeBtn:focus{
+  background-color: #1f1f1f !important;
+  border: 1px solid white !important;
 }
 
 .label{

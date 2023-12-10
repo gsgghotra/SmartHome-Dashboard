@@ -6,9 +6,9 @@ const HomeControls = () => {
         <Col className='column'>
             <p className='label'>Google Home Controls</p>
             <Container className='mt-2 homeContainer'>
-                <button className='homeBtn'>Light 1</button>
-                <button className='homeBtn'>Light 2</button>
-                <button className='homeBtn'>Light 3</button>
+                <Button className='homeBtn'>Light 1</Button>
+                <Button className='homeBtn'>Light 2</Button>
+                <Button className='homeBtn'>Light 3</Button>
             </Container>
         </Col>
     )
