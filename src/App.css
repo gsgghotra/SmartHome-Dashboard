@@ -37,3 +37,12 @@
   background-color: black;
   color: white !important;
 }
+
+.currentTime{
+  font-size: 90px;
+}
+
+.currentDate{
+  font-size: 24px;
+  color: gray;
+}

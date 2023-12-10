@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import CurrentTime from './CurrentTime';
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
       </Navbar>
       <Container>
         <Row>
-          <Col className='column'>Current Time</Col>
+          <Col className='column'>
+            <CurrentTime></CurrentTime>
+          </Col>
           <Col className='column'>Google Home Controls</Col>
-          <Col className='column'>Wifi Data</Col>
         </Row>
         <Row>
           <Col className='column'>Live weather</Col>
