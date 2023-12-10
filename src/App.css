@@ -51,8 +51,9 @@
 }
 
 .topRow{
-  height: 450px;
+  height: 250px;
     align-content: center;
+
 }
 
 .currentTime{
@@ -65,6 +66,7 @@
 .currentDate{
   font-size: 24px;
   color: gray;
+  margin-bottom: -12px;
 }
 
 .bg-body-tertiary{
@@ -76,4 +78,28 @@
 
 .buttons{
   background-color: rgb(37, 37, 37);
+}
+
+.homeContainer{
+  display: grid;
+  justify-content: space-around;
+  grid-auto-flow: column;
+}
+.homeBtn {
+  margin: 5px;
+  padding: 5px;
+  width: 120px;
+  height: 120px;
+
+  border: 1px solid gray;
+  background-color: black;
+  color: aliceblue;
+  border-radius: 5px;
+  box-shadow: rgb(203 203 203 / 34%) 0px 4px 12px;
+}
+
+.label{
+  color: gray;
+  text-align: left;
+  padding-left: 30px;
 }

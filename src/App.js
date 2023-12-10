@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import CurrentTime from './CurrentTime';
 import Header from './Header';
+import HomeControls from './HomeControls';
 
 function App() {
   return (
@@ -13,12 +14,12 @@ function App() {
       <Header></Header>
       <Container fluid className='mainContainer'>
         <Row className='topRow'>
-          <Col className='column'>
+          {/* Time Column */}
             <CurrentTime></CurrentTime>
-          </Col>
-          <Col className='column'>Google Home Controls</Col>
+          {/* Home Controls */}
+            <HomeControls></HomeControls>
         </Row>
-        <Row>
+        <Row className='bottomRow'>
           <Col className='column'>Live weather</Col>
           <Col className='column'>Music</Col>
         </Row>
