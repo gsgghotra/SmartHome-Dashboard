@@ -33,9 +33,11 @@
 }
 
 
+
 .navbar{
   background-color: black;
   color: white !important;
+  float: right;
 }
 
 .currentTime{
@@ -45,4 +47,15 @@
 .currentDate{
   font-size: 24px;
   color: gray;
+}
+
+.bg-body-tertiary{
+  background-color: black !important;
+  display: grid;
+  justify-content: end;
+  width: 100%;
+}
+
+.buttons{
+  background-color: rgb(37, 37, 37);
 }
