@@ -37,6 +37,11 @@
   max-height: 100vh;
 }
 
+  .mainContrainer{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
 
 
 .navbar{
@@ -45,11 +50,16 @@
   float: right;
 }
 
+.topRow{
+  height: 450px;
+    align-content: center;
+}
+
 .currentTime{
-  font-size: 120px;
-  font-style: italic;
+  font-size: 150px;
+  /* font-style: italic; */
   font-weight: 700;
-  text-shadow: 2px 7px #3b3b3b;
+  text-shadow: 2px 5px #3b3b3b;
 }
 
 .currentDate{
