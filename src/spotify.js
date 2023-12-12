@@ -7,6 +7,7 @@
     const client_id = clientTag + clientPass;
     const client_secret = client_s_token + client_s_key;
     
+
     //Get token function - returns access_token
     async function getToken() {
         const response = await fetch('https://accounts.spotify.com/api/token', {

@@ -9,7 +9,7 @@ const CurrentTime =()=> {
     setInterval(()=>{
         setCurrentTime(dayjs().format('HH : mm'));
         setTodaysDate(dayjs().format('DD MMMM, YYYY'));
-    }, 1000);
+    }, 1);
     return(
         <Col className='column'>
             <p className="currentDate">{todaysDate}</p>

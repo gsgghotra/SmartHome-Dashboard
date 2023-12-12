@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import CurrentTime from './CurrentTime';
 import Header from './Header';
 import HomeControls from './HomeControls';
-import MusicPlayer from './MusicPlayer';
+import SpotifyPlayer from './Spotify/SpotifyPlayer';
 
 function App() {
   return (
@@ -23,7 +23,8 @@ function App() {
         <Row className='bottomRow'>
           <Col className='column'>Live weather</Col>
           <Col className='column'>Music
-            <MusicPlayer></MusicPlayer>
+            {/* <MusicPlayer></MusicPlayer> */}
+            <SpotifyPlayer></SpotifyPlayer>
           </Col>
         </Row>
       </Container>

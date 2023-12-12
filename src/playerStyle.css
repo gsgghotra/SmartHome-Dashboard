@@ -1,7 +1,9 @@
 iframe{
-    visibility: visible;
-
-}
+    position: fixed;
+    width: min-content;
+    top: 0;
+    left: 0;
+}   
 
 .option{
     border: 1px solid gray;
