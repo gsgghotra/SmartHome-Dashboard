@@ -4,6 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import './SpotifyPlayer.css';
 import artHolder from "./images/artHolder.png";
 import GetUser from './GetUser';
+import WebPlayback from './WebPlayer';
 
 const SpotifyPlayer = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -122,6 +123,7 @@ const SpotifyPlayer = () => {
                             <button className="spotifyButtons" onClick={loadPlaylists}>My Library</button>
                             <button className="spotifyButtons" onClick={handleLogin}>Reload Token</button>
                             </Col>
+                            <WebPlayback accessToken={tokens.access_token}></WebPlayback>
                         </Row>
                         <Row>
                             <Col className='flexPlaylists'>
