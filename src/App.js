@@ -22,7 +22,7 @@ function App() {
         </Row>
         <Row className='bottomRow'>
           <Col className='column'>Live weather</Col>
-          <Col className='column'>Music
+          <Col className='column'>
             {/* <MusicPlayer></MusicPlayer> */}
             <SpotifyPlayer></SpotifyPlayer>
           </Col>
