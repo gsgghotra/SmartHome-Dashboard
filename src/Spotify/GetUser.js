@@ -17,7 +17,7 @@ const GetUser = (props) => {
             const data = await response.json();
 
             if(data.error){
-                if(data.error.status === 404){
+                if(data.error.status === 401){
                     props.loginBtn();
                 }
             }
