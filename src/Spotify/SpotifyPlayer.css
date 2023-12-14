@@ -60,3 +60,7 @@
     font-size: small;
     box-shadow: rgb(203 203 203 / 34%) 0px 4px 12px;
 }
+
+.artImg{
+    width: 100px;
+}

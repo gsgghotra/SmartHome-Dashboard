@@ -62,7 +62,7 @@ app.use(cors({
 
 app.get('/login', (req, res) => {
   console.log('Reached /login route');
-  const scope = "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state";
+  const scope = "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing";
   const spotifyAuthUrl = `http://192.168.86.28:3001/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${encodeURIComponent(scope)}`;
   console.log('Redirecting to Spotify:', spotifyAuthUrl);
   res.redirect(spotifyAuthUrl);

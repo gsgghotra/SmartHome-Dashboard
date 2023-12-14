@@ -54,13 +54,6 @@ const SpotifyPlayer = () => {
     setIsLoggedIn(false);
     setTokens({})
     };
-
-    useEffect(() => {
-        // Check for tokens on component mount
-        fetchTokens();
-    }, []);
-
-
     const fetchUserPlaylists = async (accessToken) => {
         try {
             const response = await axios.get('https://api.spotify.com/v1/me/playlists', {
@@ -74,11 +67,14 @@ const SpotifyPlayer = () => {
             setAllPlaylistsMap(prevPlaylistsMap => {
                 const updatedPlaylistsMap = new Map(prevPlaylistsMap);
 
+
                 myPlaylists.forEach(playlist => {
                     const playlistKey = playlist.name;
                     const playlistData = {
                         name: playlist.name,
                         image: playlist.images.length > 0 ? playlist.images[0].url : null,
+                        uri: playlist.uri,
+                        tracks: playlist.tracks
                         // Add other properties you want to store
                     };
 
@@ -98,6 +94,11 @@ const SpotifyPlayer = () => {
             throw error;
         }
     };
+
+    useEffect(() => {
+        // Check for tokens on component mount
+        fetchTokens();
+    }, []);
 
     const loadPlaylists = async () => {
         try {
@@ -123,7 +124,7 @@ const SpotifyPlayer = () => {
                             <button className="spotifyButtons" onClick={loadPlaylists}>My Library</button>
                             <button className="spotifyButtons" onClick={handleLogin}>Reload Token</button>
                             </Col>
-                            <WebPlayback accessToken={tokens.access_token}></WebPlayback>
+                            <WebPlayback accessToken={tokens.access_token} playlist={allPlaylistsMap}></WebPlayback>
                         </Row>
                         <Row>
                             <Col className='flexPlaylists'>
