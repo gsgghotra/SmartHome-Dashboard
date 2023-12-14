@@ -11,7 +11,6 @@ const SpotifyPlayer = () => {
     const [tokens, setTokens] = useState();
     const [allPlaylistsMap, setAllPlaylistsMap] = useState(new Map());
 
-
     const fetchTokens = async () => {
         try {
             const response = await axios.get('http://192.168.86.28:3001/get-tokens');
@@ -20,7 +19,7 @@ const SpotifyPlayer = () => {
             if (fetchedTokens) {
                 // Update state with the fetched tokens
                 setTokens(fetchedTokens);
-                console.log("I set the tokens now", fetchedTokens);
+                //console.log("I set the tokens now", fetchedTokens);
                 
                 // Update isLoggedIn based on the presence of tokens
                 setIsLoggedIn(!!fetchedTokens.access_token);
@@ -54,6 +53,7 @@ const SpotifyPlayer = () => {
     setIsLoggedIn(false);
     setTokens({})
     };
+
     const fetchUserPlaylists = async (accessToken) => {
         try {
             const response = await axios.get('https://api.spotify.com/v1/me/playlists', {
@@ -117,7 +117,7 @@ const SpotifyPlayer = () => {
                 <div className='playlists'>
                     <Container>
                         <Row>
-                            <GetUser accessToken={tokens.access_token} trackUri="spotify:track:6yzxDlblhlYBepcieip20S"></GetUser>
+                            <GetUser accessToken={tokens.access_token} loginBtn={handleLogin} trackUri="spotify:track:6yzxDlblhlYBepcieip20S"></GetUser>
                         </Row>
                         <Row>
                             <Col>

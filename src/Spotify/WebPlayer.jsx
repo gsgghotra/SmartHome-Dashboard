@@ -6,6 +6,9 @@ function WebPlayback(props) {
     const [is_skipped, setSkipped] = useState(false);
     const [is_active, setActive] = useState(false);
     const [device, setDevice] = useState(0);
+
+    // Tracks from playlist
+    const[tracks, setTracks] = useState({});
     const [current_track, setTrack] = useState({
         name: "Temporary Song",
         album: {
@@ -25,15 +28,48 @@ function WebPlayback(props) {
         const player = new window.Spotify.Player({
             name: 'Web Playback SDK',
             getOAuthToken: cb => { cb(props.accessToken); },
-            volume: 0.5
+            volume: 0.2
         });
 
         setPlayer(player);
 
-        player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
-            setDevice(device_id)
-            setActive(true);
+        player.addListener('ready', async ({ device_id }) => {
+            try {
+                // Log device readiness
+                console.log('Ready with Device ID:', device_id);
+        
+                // Set the device
+                setDevice(device_id);
+                setActive(true);
+        
+                // Define a function to handle player setup and actions
+                const setupPlayer = async () => {
+                    if (device_id) {
+                        // Set the player to active state
+                       
+                        // Get playlist and information about the currently playing track
+                        getPlaylist();
+                        currentlyPlaying();
+                    } else {
+                        console.log("Device not set before transferring");
+                    }
+                };
+        
+                // Check if the player is available
+                if (player) {
+                    // Call the setup function
+                    await setupPlayer();
+                } else {
+                    console.log("Player not set");
+                }
+            } catch (error) {
+                console.error('Error during player setup:', error);
+                        // Handle the specific error related to postMessage
+                if (error.message.includes("postMessage")) {
+                    console.log("Error: postMessage origin mismatch. Check your Spotify Developer Dashboard settings.");
+                    // You can also redirect the user to an error page or show a user-friendly message.
+                }
+            }
         });
 
         player.addListener('not_ready', ({ device_id }) => {
@@ -45,9 +81,31 @@ function WebPlayback(props) {
         };
     }, [props.accessToken]);
 
-    useEffect(()=>{
-        currentlyPlaying();
-    }, [is_paused, is_skipped])
+    const getPlaylist =async ()=> {
+        // https://api.spotify.com/v1/playlists/
+        try {
+            const response = await fetch('https://api.spotify.com/v1/playlists/'+"37i9dQZF1DX4ff8snKBqu9", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + props.accessToken,
+                'Content-Type': 'application/json',
+            },
+            })
+            .then((response)=>{
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data)=>{
+                console.log(data.tracks)
+                setTracks(data.tracks.items)
+            })
+
+        } catch (error){
+            console.error('Error fetching Playlist:', error);
+        }
+    }
 
     const currentlyPlaying = async () => {
         try {
@@ -67,7 +125,7 @@ function WebPlayback(props) {
           // Check if the response is not empty
             if (data.trim()) {
                 const jsonData = JSON.parse(data);
-                console.log("playing", jsonData);
+                //console.log("playing", jsonData);
                 if(jsonData){
                     setTrack({
                         name: jsonData.item.album.name,
@@ -87,15 +145,15 @@ function WebPlayback(props) {
         };
 
     const handlePlay = async () => {
-        let track = props.playlist
-        console.log("PROPS", track)
+        let track = tracks[0].track.uri
+        console.log("Track 1 - ", track ," On Device - ", device)
+        await handleTransferPlayback();
         try {
-            const trackUri = 'spotify:track:72vuBPMhwFNlSYpTSf6fVD'; // Replace TRACK_ID with the actual Spotify track ID
+            const trackUri = track; // Replace TRACK_ID with the actual Spotify track ID
             const response = await fetch('https://api.spotify.com/v1/me/player/play', {
                 method: 'PUT',
                 headers: {
                 'Authorization': 'Bearer ' + props.accessToken,
-                'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     device_ids: [device], // Use the ID of the current device
@@ -106,11 +164,10 @@ function WebPlayback(props) {
             if (!response.ok) {
                 console.error('Error playing track:', response);
                 currentlyPlaying();
-            } 
-            
-            else {
+            } else {
                 setPaused(false);
             }
+            
             } catch (error) {
             console.error('Error playing track:', error);
             }
@@ -164,7 +221,7 @@ function WebPlayback(props) {
             },
             body: JSON.stringify({
                 device_ids: [device], // Use the ID of the current device
-                play: !is_paused, // Continue playing if not paused
+                // play: !is_paused, // Continue playing if not paused
             }),
             });
 

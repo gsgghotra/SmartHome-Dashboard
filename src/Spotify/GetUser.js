@@ -1,7 +1,8 @@
 import { useState, useEffect} from 'react';
 
-const GetUser = ({ accessToken}) => {
-    console.log("Play music token ", accessToken)
+const GetUser = (props) => {
+    let accessToken = props.accessToken
+    //console.log("Play music token ", accessToken)
     const [isLoaded, setIsLoaded] = useState(false);
     const [userData, setUserData] = useState();
 
@@ -14,6 +15,13 @@ const GetUser = ({ accessToken}) => {
         
             const response = await fetch('https://api.spotify.com/v1/me', settings);
             const data = await response.json();
+
+            if(data.error){
+                if(data.error.status === 404){
+                    props.loginBtn();
+                }
+            }
+
             setUserData(data.display_name)
         
             // Check if the user has an active playback device
