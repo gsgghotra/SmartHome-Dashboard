@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 function WebPlayback(props) {
     const [player, setPlayer] = useState(undefined);
     const [is_paused, setPaused] = useState(false);
-    const [is_skipped, setSkipped] = useState(false);
     const [is_active, setActive] = useState(false);
     const [device, setDevice] = useState(0);
 
@@ -145,32 +144,39 @@ function WebPlayback(props) {
         };
 
     const handlePlay = async () => {
+        await handleTransferPlayback();
         let track = tracks[0].track.uri
         console.log("Track 1 - ", track ," On Device - ", device)
-        await handleTransferPlayback();
-        try {
-            const trackUri = track; // Replace TRACK_ID with the actual Spotify track ID
-            const response = await fetch('https://api.spotify.com/v1/me/player/play', {
-                method: 'PUT',
-                headers: {
-                'Authorization': 'Bearer ' + props.accessToken,
-                },
-                body: JSON.stringify({
-                    device_ids: [device], // Use the ID of the current device
-                    uris: [trackUri],
-                }),
-            });
-        
-            if (!response.ok) {
-                console.error('Error playing track:', response);
-                currentlyPlaying();
-            } else {
-                setPaused(false);
-            }
+        setTimeout( async()=>{
+            try {
+                console.log("Istarted playing")
+                const trackUri = track; // Replace TRACK_ID with the actual Spotify track ID
+                const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+                    method: 'PUT',
+                    headers: {
+                    'Authorization': 'Bearer ' + props.accessToken,
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        device_ids: [device], // Use the ID of the current device
+                        uris: [trackUri],
+                    }),
+                });
+    
+                console.log("EROR", response)
             
-            } catch (error) {
-            console.error('Error playing track:', error);
-            }
+                if (!response.ok) {
+                    console.error('Error playing track:', response);
+                } else {
+                    setPaused(false);
+                }
+    
+                } 
+            catch (error) {
+                console.error('Error playing track:', error);
+                }
+        }, 500)
+
         };
 
     const handlePause = async () => {
@@ -212,6 +218,8 @@ function WebPlayback(props) {
     };
 
     const handleTransferPlayback = async () => {
+
+        //Transfer the current device
         try {
             const response = await fetch('https://api.spotify.com/v1/me/player', {
             method: 'PUT',
@@ -224,15 +232,13 @@ function WebPlayback(props) {
                 // play: !is_paused, // Continue playing if not paused
             }),
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            } 
-            if (response.ok){
-                console.log("Transferred")
-            }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                } 
+                if (response.ok){
+                    console.log("Transferred")
+                }
     
-        
             } catch (error) {
             console.error('Error transferring playback:', error);
             }
