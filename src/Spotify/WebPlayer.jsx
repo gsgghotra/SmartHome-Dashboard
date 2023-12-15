@@ -8,12 +8,13 @@ function WebPlayback(props) {
 
     // Tracks from playlist
     const[tracks, setTracks] = useState({});
+    const[trackNumber, setTrsckNumber] = useState(0);
     const [current_track, setTrack] = useState({
-        name: "Temporary Song",
+        name: "Nothing Playing",
         album: {
             images: [{ url: "https://via.placeholder.com/150" }]
             },
-        artists: [{ name: "Unknown Artist" }]
+        artists: [{ name: "Artist" }]
         });
 
     useEffect(() => {
@@ -146,8 +147,17 @@ function WebPlayback(props) {
 
     const handlePlay = async () => {
         await handleTransferPlayback();
-        let track = tracks[0].track.uri
+        let track = tracks[trackNumber].track.uri;
+
         console.log("Track 1 - ", track ," On Device - ", device)
+        setTrack({
+            name: tracks[trackNumber].track.name,
+            album: {
+                images: [{ url: tracks[trackNumber].track.album.images[0].url }]
+                },
+            artists: [{ name: tracks[trackNumber].track.artists[0].name }]
+            });
+
         setTimeout( async()=>{
             try {
                 console.log("Istarted playing")
@@ -196,25 +206,16 @@ function WebPlayback(props) {
     
     const handleSkip = async () => {
         // Focus on manual updates
-    try {
-        let nextResponse = await fetch('https://api.spotify.com/v1/me/player/next', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + props.accessToken,
-            'Content-Type': 'application/json',
-        },
-        });
-        if (!nextResponse.ok) {
-            throw new Error(`HTTP error! Status: ${nextResponse.status}`);
-        } else {
-            await currentlyPlaying();
-            setTimeout(()=>{currentlyPlaying()}, 1000)
-            
-        }
-
-    } catch (error) {
-        console.error('Error skipping track:', error);
-    }
+        console.log("Next song ", tracks)
+        setTrsckNumber(trackNumber + 1);
+        setTrack(
+            {
+            name: tracks[trackNumber].track.name,
+            album: {
+                images: [{ url: tracks[trackNumber].track.album.images[0].url }]
+                },
+            artists: [{ name: tracks[trackNumber].track.artists[0].name }]
+            });
     };
 
     const handleTransferPlayback = async () => {
@@ -248,17 +249,18 @@ function WebPlayback(props) {
         <>
         <div className="container">
             <div className="main-wrapper">
-            <p>{current_track.name}</p>
+            <p>Status: {is_active ? 'Active' : 'Inactive'}</p>
+           
             <img className="artImg" src={current_track.album.images[0].url} alt="Album Cover" />
 
-            <p>Status: {is_active ? 'Active' : 'Inactive'}</p>
+            <p>{current_track.name}</p>
             <p>Paused: {is_paused ? 'Yes' : 'No'}</p>
 
             <div>
                 <button onClick={handlePlay}>Play</button>
                 <button onClick={handlePause}>Pause</button>
                 <button onClick={handleSkip}>Skip</button>
-                <button onClick={handleTransferPlayback}>Transfer Playback</button>
+                {/* <button onClick={handleTransferPlayback}>Transfer Playback</button> */}
             </div>
             </div>
         </div>

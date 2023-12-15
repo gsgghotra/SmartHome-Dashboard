@@ -7,7 +7,7 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    margin: 8px;
+    margin: 4px;
 }
 
 .playlistImg{
@@ -69,7 +69,7 @@
 }
 
 .bg-gray{
-    background-color: #818181;
+    background-color: #000000;
 }
 
 .playerRight{
