@@ -11,6 +11,8 @@ const SpotifyPlayer = () => {
     const [tokens, setTokens] = useState();
     const [allPlaylistsMap, setAllPlaylistsMap] = useState(new Map());
 
+    const [chosenPlaylist, setChosenPlaylist] = useState(false);
+
     const fetchTokens = async () => {
         try {
             const response = await axios.get('http://192.168.86.28:3001/get-tokens');
@@ -71,6 +73,7 @@ const SpotifyPlayer = () => {
                 myPlaylists.forEach(playlist => {
                     const playlistKey = playlist.name;
                     const playlistData = {
+                        id: playlist.id,
                         name: playlist.name,
                         image: playlist.images.length > 0 ? playlist.images[0].url : null,
                         uri: playlist.uri,
@@ -84,6 +87,7 @@ const SpotifyPlayer = () => {
                     }
                 });
 
+                console.log(updatedPlaylistsMap)
                 return updatedPlaylistsMap;
             });
 
@@ -110,6 +114,13 @@ const SpotifyPlayer = () => {
         }
     };
 
+    const handleChosenPlaylist =(e)=>{
+        console.log(e.target.dataset.playlist)
+        if (e.target.dataset.playlist){
+            setChosenPlaylist(e.target.dataset.playlist)
+        }
+    }
+
     return (
         <div>
         {isLoggedIn ? (
@@ -117,29 +128,39 @@ const SpotifyPlayer = () => {
                 <div className='playlists'>
                     <Container>
                         <Row>
-                            <GetUser accessToken={tokens.access_token} loginBtn={handleLogin} trackUri="spotify:track:6yzxDlblhlYBepcieip20S"></GetUser>
-                        </Row>
-                        <Row>
-                            <Col>
-                            <button className="spotifyButtons" onClick={loadPlaylists}>My Library</button>
-                            <button className="spotifyButtons" onClick={handleLogin}>Reload Token</button>
+                            <Col className='leftPanel col-5'>
+                                <Row>
+                                    <GetUser accessToken={tokens.access_token} loginBtn={handleLogin} trackUri="spotify:track:6yzxDlblhlYBepcieip20S"></GetUser>
+                                </Row>
+                                <Row>
+                                    <div className='flexPlaylists'>
+                                        {[...allPlaylistsMap.values()].map((playlist, index) => (
+                                            <Card
+                                                onClick={handleChosenPlaylist}
+                                                key={index}
+                                                bg="Dark"
+                                                className="mb-1 playlistEach"
+                                            >
+                                                <Card.Body className='playlistBody' data-playlist={playlist.id}>
+                                                    <Card.Img src={playlist.image || artHolder} className='playlistImg' />
+                                                    {/* <Card.Title className='playlistTitle'>{playlist.name}</Card.Title> */}
+                                                </Card.Body>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                </Row>
+                                    
                             </Col>
-                            <WebPlayback accessToken={tokens.access_token} playlist={allPlaylistsMap}></WebPlayback>
-                        </Row>
-                        <Row>
-                            <Col className='flexPlaylists'>
-                                {[...allPlaylistsMap.values()].map((playlist, index) => (
-                                    <Card
-                                        key={index}
-                                        bg="Dark"
-                                        className="mb-1 playlistEach"
-                                    >
-                                        <Card.Body className='playlistBody'>
-                                            <Card.Img src={playlist.image || artHolder} className='playlistImg' />
-                                            <Card.Title className='playlistTitle'>{playlist.name}</Card.Title>
-                                        </Card.Body>
-                                    </Card>
-                                ))}
+                            <Col className='playerright'>
+                                <Row>
+                                    <Col>
+                                    <button className="spotifyButtons" onClick={loadPlaylists}>My Library</button>
+                                    <button className="spotifyButtons" onClick={handleLogin}>Reload Token</button>
+                                    </Col>
+                                    { chosenPlaylist &&
+                                        <WebPlayback accessToken={tokens.access_token} playlist={chosenPlaylist}></WebPlayback>
+                                    }
+                                </Row>          
                             </Col>
                         </Row>
                     </Container>

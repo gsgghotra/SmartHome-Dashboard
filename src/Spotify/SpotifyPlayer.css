@@ -1,8 +1,8 @@
 .playlistEach{
     background-color: black;
     border: 1px solid gray;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -43,9 +43,12 @@
 .flexPlaylists{
     display: flex;
     flex-direction: row;
-    position: relative;
-    justify-content: center;
+    /* position: absolute; */
+    /* overflow: scroll; */
+    justify-content: flex-start;
     flex-wrap: wrap;
+    max-height: 380px;
+    overflow: scroll;
 }
 
 .spotifyButtons{
@@ -67,4 +70,13 @@
 
 .bg-gray{
     background-color: #818181;
+}
+
+.playerRight{
+    width: 60%;
+}
+
+.leftPanel{
+    width: 40%;
+
 }

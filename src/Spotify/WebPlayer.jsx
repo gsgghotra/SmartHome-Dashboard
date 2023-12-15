@@ -20,14 +20,13 @@ function WebPlayback(props) {
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
-
         document.body.appendChild(script);
 
         window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new window.Spotify.Player({
             name: 'Web Playback SDK',
             getOAuthToken: cb => { cb(props.accessToken); },
-            volume: 0.2
+            volume: 0.5
         });
 
         setPlayer(player);
@@ -45,9 +44,8 @@ function WebPlayback(props) {
                 const setupPlayer = async () => {
                     if (device_id) {
                         // Set the player to active state
-                       
                         // Get playlist and information about the currently playing track
-                        getPlaylist();
+                        getPlaylist(props.playlist);
                         currentlyPlaying();
                     } else {
                         console.log("Device not set before transferring");
@@ -80,10 +78,10 @@ function WebPlayback(props) {
         };
     }, [props.accessToken]);
 
-    const getPlaylist =async ()=> {
+    const getPlaylist =async (playlist)=> {
         // https://api.spotify.com/v1/playlists/
         try {
-            const response = await fetch('https://api.spotify.com/v1/playlists/'+"37i9dQZF1DX4ff8snKBqu9", {
+            const response = await fetch('https://api.spotify.com/v1/playlists/'+playlist, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + props.accessToken,
@@ -97,8 +95,11 @@ function WebPlayback(props) {
                 return response.json();
             })
             .then((data)=>{
-                console.log(data.tracks)
-                setTracks(data.tracks.items)
+                console.log("find ---- ",data)
+                if (data.tracks.items.length > 0){
+                    setTracks(data.tracks.items)
+                }
+                
             })
 
         } catch (error){
@@ -196,19 +197,17 @@ function WebPlayback(props) {
     const handleSkip = async () => {
     try {
         let nextResponse = await fetch('https://api.spotify.com/v1/me/player/next', {
-
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + props.accessToken,
             'Content-Type': 'application/json',
         },
         });
-
         if (!nextResponse.ok) {
             throw new Error(`HTTP error! Status: ${nextResponse.status}`);
         } else {
             await currentlyPlaying();
-            // setTimeout(()=>{currentlyPlaying()}, 1000)
+            setTimeout(()=>{currentlyPlaying()}, 1000)
             
         }
 
