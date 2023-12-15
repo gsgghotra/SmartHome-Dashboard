@@ -76,7 +76,7 @@ function WebPlayback(props) {
 
         player.connect();
         };
-    }, [props.accessToken]);
+    }, [props.accessToken, props.playlist]);
 
     const getPlaylist =async (playlist)=> {
         // https://api.spotify.com/v1/playlists/
@@ -195,6 +195,7 @@ function WebPlayback(props) {
     };
     
     const handleSkip = async () => {
+        // Focus on manual updates
     try {
         let nextResponse = await fetch('https://api.spotify.com/v1/me/player/next', {
         method: 'POST',

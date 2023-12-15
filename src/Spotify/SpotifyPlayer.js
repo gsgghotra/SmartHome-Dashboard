@@ -10,8 +10,7 @@ const SpotifyPlayer = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [tokens, setTokens] = useState();
     const [allPlaylistsMap, setAllPlaylistsMap] = useState(new Map());
-
-    const [chosenPlaylist, setChosenPlaylist] = useState(false);
+    const [dynamicPlaylist, setDynamicPlaylist] = useState(false);
 
     const fetchTokens = async () => {
         try {
@@ -115,9 +114,9 @@ const SpotifyPlayer = () => {
     };
 
     const handleChosenPlaylist =(e)=>{
-        console.log(e.target.dataset.playlist)
+        //console.log(e.target.dataset.playlist)
         if (e.target.dataset.playlist){
-            setChosenPlaylist(e.target.dataset.playlist)
+            setDynamicPlaylist(<WebPlayback accessToken={tokens.access_token} playlist={e.target.dataset.playlist}></WebPlayback>);
         }
     }
 
@@ -157,9 +156,7 @@ const SpotifyPlayer = () => {
                                     <button className="spotifyButtons" onClick={loadPlaylists}>My Library</button>
                                     <button className="spotifyButtons" onClick={handleLogin}>Reload Token</button>
                                     </Col>
-                                    { chosenPlaylist &&
-                                        <WebPlayback accessToken={tokens.access_token} playlist={chosenPlaylist}></WebPlayback>
-                                    }
+                                        {dynamicPlaylist}
                                 </Row>          
                             </Col>
                         </Row>
