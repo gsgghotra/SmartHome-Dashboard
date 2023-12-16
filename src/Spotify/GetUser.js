@@ -1,4 +1,5 @@
 import { useState, useEffect} from 'react';
+import '../Spotify/SpotifyPlayer.css';
 
 const GetUser = (props) => {
     let accessToken = props.accessToken
@@ -41,7 +42,7 @@ const GetUser = (props) => {
 
 return (
 <div>
-    <p>{isLoaded ? `${userData}`: 'Getting Internal Error'}</p>
+    <p className="label">{isLoaded ? `${userData}'s Music Station`: 'Getting Internal Error'}</p>
     {/* Add buttons or other components based on the playback state */}
 </div>
 );

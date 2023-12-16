@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import peachTheme from "../assets/video/ModernTheme.mp4";
+import artHolder from "../assets/images/artHolder.png";
+import "../playerStyle.css";
 
 function WebPlayback(props) {
     const [player, setPlayer] = useState(undefined);
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
     const [device, setDevice] = useState(0);
+    const myvideo = useRef(null);
 
     // Tracks from playlist
     const[tracks, setTracks] = useState({});
@@ -46,8 +50,8 @@ function WebPlayback(props) {
                     if (device_id) {
                         // Set the player to active state
                         // Get playlist and information about the currently playing track
+                        await currentlyPlaying();
                         getPlaylist(props.playlist);
-                        currentlyPlaying();
                     } else {
                         console.log("Device not set before transferring");
                     }
@@ -96,9 +100,9 @@ function WebPlayback(props) {
                 return response.json();
             })
             .then((data)=>{
-                console.log("find ---- ",data)
                 if (data.tracks.items.length > 0){
-                    setTracks(data.tracks.items)
+                    setTracks(data.tracks.items);
+                    // handlePlay();
                 }
                 
             })
@@ -145,11 +149,12 @@ function WebPlayback(props) {
        
         };
 
-    const handlePlay = async () => {
+    const handlePlay = async (e) => {
         await handleTransferPlayback();
         let track = tracks[trackNumber].track.uri;
-
-        console.log("Track 1 - ", track ," On Device - ", device)
+        
+        // console.log("Track 1 - ", track ," On Device - ", device)
+        console.log("Track 1 - ", track ," by ", tracks[trackNumber].track.artists[0].name)
         setTrack({
             name: tracks[trackNumber].track.name,
             album: {
@@ -160,7 +165,6 @@ function WebPlayback(props) {
 
         setTimeout( async()=>{
             try {
-                console.log("Istarted playing")
                 const trackUri = track; // Replace TRACK_ID with the actual Spotify track ID
                 const response = await fetch('https://api.spotify.com/v1/me/player/play', {
                     method: 'PUT',
@@ -174,19 +178,20 @@ function WebPlayback(props) {
                     }),
                 });
     
-                console.log("EROR", response)
+                // console.log("EROR", response)
             
                 if (!response.ok) {
                     console.error('Error playing track:', response);
                 } else {
                     setPaused(false);
+                    myvideo.current.play();
                 }
     
                 } 
             catch (error) {
                 console.error('Error playing track:', error);
                 }
-        }, 500)
+        }, 1000)
 
         };
 
@@ -199,6 +204,7 @@ function WebPlayback(props) {
         },
         });
         setPaused(true);
+        myvideo.current.pause();
     } catch (error) {
         console.error('Error pausing track:', error);
     }
@@ -206,6 +212,10 @@ function WebPlayback(props) {
     
     const handleSkip = async () => {
         // Focus on manual updates
+        player.nextTrack().then(() => {
+            console.log('Skipped to next track!');
+        });
+
         console.log("Next song ", tracks)
         setTrsckNumber(trackNumber + 1);
         setTrack(
@@ -230,7 +240,7 @@ function WebPlayback(props) {
             },
             body: JSON.stringify({
                 device_ids: [device], // Use the ID of the current device
-                // play: !is_paused, // Continue playing if not paused
+                play: !is_paused, // Continue playing if not paused
             }),
             });
                 if (!response.ok) {
@@ -248,21 +258,68 @@ function WebPlayback(props) {
     return (
         <>
         <div className="container">
-            <div className="main-wrapper">
-            <p>Status: {is_active ? 'Active' : 'Inactive'}</p>
-           
-            <img className="artImg" src={current_track.album.images[0].url} alt="Album Cover" />
-
-            <p>{current_track.name}</p>
-            <p>Paused: {is_paused ? 'Yes' : 'No'}</p>
-
-            <div>
-                <button onClick={handlePlay}>Play</button>
-                <button onClick={handlePause}>Pause</button>
-                <button onClick={handleSkip}>Skip</button>
-                {/* <button onClick={handleTransferPlayback}>Transfer Playback</button> */}
-            </div>
-            </div>
+        <section id="playlists" className="columnPlayer">
+                        <div id="mediaPlayer" className="visible">
+                            {/* <div id="wrap_video">
+                                <div id="video_box">
+                                    <div id="video_overlays">
+                                    <img src={current_track.album.images[0].url || artHolder} id="songArt" className="artOverlay" alt="Song Art" />
+                                    </div>
+                                    <div>
+                                    <video id="artVideo" ref={myvideo} loop>
+                                        <source src={peachTheme} type="video/mp4"></source>
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    </div>
+                                </div>
+                            </div> */}
+                            <img src={current_track.album.images[0].url || artHolder} id="songArt" className="artMusic" alt="Song Art" />
+                            <h4 className="musicTitle" id="songTitle"> {current_track.name || "Song Title" }</h4>
+                            <p className="playlistTitle" id="playlistTitle">{current_track.artists[0].name || "Artist" }</p>
+                                {/* <span className="currentTimer" id="currentTimer">0:00</span>
+                                <span className="timer" id="timer">0:00</span>
+                                <input type="range" id="trackSlider" /> */}
+        
+                            <ul className="controls">
+                            <li>
+                                <button onClick={handlePause} id="spotifyPrev">
+                                    <span className="fa-solid fa-angle-left fa-2xl playericon"></span>
+                                </button>
+                            </li>
+        
+                            <li>
+                                {is_paused ? 
+                                <button onClick={handlePlay} id="spotifyPlay">
+                                    <span id="playerToogleBtn" className="fa-solid fa-play fa-2xl playericon"></span>
+                                </button>
+                                : 
+                                <button onClick={handlePause} id="spotifyPlay">
+                                    <span id="playerToogleBtn" className="fa-solid fa-pause fa-2xl playericon"></span>
+                                </button>
+                                }
+                                
+                            </li>
+        
+                            <li>
+                                <button onClick={handleSkip} id="spotifyNext">
+                                    <span className="fa-solid fa-angle-right fa-2xl playericon"></span>
+                                </button>
+                            </li>
+                            </ul>
+                        </div>
+                        </section>
+            {/* <div className="main-wrapper">
+                <p>Status: {is_active ? 'Active' : 'Inactive'}</p>
+                <img className="artImg" src={current_track.album.images[0].url} alt="Album Cover" />
+                <p>{current_track.name}</p>
+                <p>Paused: {is_paused ? 'Yes' : 'No'}</p>
+                <div>
+                    <button onClick={handlePlay}>Play</button>
+                    <button onClick={handlePause}>Pause</button>
+                    <button onClick={handleSkip}>Skip</button>
+                    <button onClick={handleTransferPlayback}>Transfer Playback</button>
+                </div>
+            </div> */}
         </div>
         </>
     );
