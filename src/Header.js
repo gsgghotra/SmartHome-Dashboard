@@ -17,10 +17,10 @@ const Header = () => {
         <>
             <Navbar expand="lg" data-bs-theme="dark" className="bg-body-tertiary mb-1">
                 <Container>
-                    {/* <Navbar.Brand href="#">SmartHome Dashboard</Navbar.Brand> */}
-                    <Button variant="secondary" className='buttons m-2'>
+                    <Button variant="secondary" id="assistantButton" className='buttons m-2'>
                         <img src={assistantIcon} alt="Refresh App"></img>
                     </Button>
+                    {/* <Navbar.Brand href="#">SmartHome Dashboard</Navbar.Brand> */}
                     <Button variant="secondary" className='buttons m-2' onClick={refresher}>
                         <img src={refreshIcon} alt="Refresh App"></img>
                     </Button>

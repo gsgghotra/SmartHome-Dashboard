@@ -21,7 +21,9 @@ function App() {
             <HomeControls></HomeControls>
         </Row>
         <Row className='bottomRow'>
-          <Col className='column'>Live weather</Col>
+          <Col className='column'>
+            Live weather
+            </Col>
           <Col className='column bg-gray'>
             {/* <MusicPlayer></MusicPlayer> */}
             <SpotifyPlayer></SpotifyPlayer>

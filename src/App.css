@@ -81,22 +81,32 @@
 }
 
 .homeContainer{
-  display: grid;
-  justify-content: space-around;
-  grid-auto-flow: column;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .homeBtn {
+  position: relative;
   margin: 5px;
   padding: 5px;
-  width: 120px;
-  height: 120px;
+  width: 280px;
+  height: 80px;
 
   border: 1px solid gray;
   background-color: black;
   color: aliceblue;
   border-radius: 20px;
-  box-shadow: rgb(203 203 203 / 34%) 0px 4px 12px;
+  display: flex;
+  justify-content: left;
+  align-items: self-start;
+}
+.homeBtn-on{
+  box-shadow: rgba(255, 255, 255, 0.34) 0px 4px 12px;
+}
+.homeBtn-off{
+  box-shadow: rgb(203 203 203 / 10%) 0px 4px 12px;
 }
 
 .homeBtn:hover{
@@ -117,7 +127,30 @@
 }
 
 .bulb{
-  width: 100px;
-  margin: 0px auto;
-  margin-top: -25px;
+  width: 90px;
+  margin-top: -15px;
+  left: -10px;
+  top: 0;
+  display: inline-block;
+}
+
+.deviceName{
+  display: block;
+  width: 67%;
+  right: 0;
+  text-align: left;
+  /* background: blueviolet; */
+  position: absolute;
+  top: 15px;
+}
+
+.deviceStatus{
+  color: #3b3b3b;
+    display: block;
+    width: 67%;
+    position: absolute;
+    bottom: 14px;
+    right: 0;
+    /* background: aliceblue; */
+    text-align: left;
 }
