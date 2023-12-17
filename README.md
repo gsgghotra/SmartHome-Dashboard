@@ -13,21 +13,21 @@
 
 ### Progress Update
 - The time displays correctly
-- Home control buttons are dummy
+- Smart devices controls are working, used [Philips-hue-Developers](https://developers.meethue.com/develop/get-started-2/)
 - Spotify works but still need a lot of work
 
 #### Current Design
-<img src="./src/assets/images/screenshots/Screenshot_progress16Dec.png" alt="current Desing" width="400px" />
+<img src="./src/assets/images/screenshots/Screenshot_17dec.png" alt="current Desing" width="400px" />
 
 - Vinyl design for music player is removed due to UX reasons. Design is available on another project [Harmony Heal](https://github.com/gsgghotra/HarmonyHeal)
 
 ### Next steps
+- Add settings option (Themes)
 - Explore the way to open (open.spotify) on ipad as background 
-- Google Assistant SDK [Assistant SDK](https://developers.google.com/assistant/sdk)
-- Philips home control API [Philips-hue-Developers](https://developers.meethue.com/develop/get-started-2/)
 - Football Data [api-football](https://www.api-football.com/)
 - Use (Weather Dashboard) and add weather info [Weather Dashboard](https://github.com/gsgghotra/Weather-Forecast-Dashboard)
 - Implement Bill tracker [Bill Tracker](https://github.com/gsgghotra/BillTracker)
+- Google Assistant SDK [Assistant SDK](https://developers.google.com/assistant/sdk)
 
 ### Initial Designs
 <img src="./src/assets/images/screenshots/scrrenshot_initialdesign.png" alt="Initial Design of Smart Dashboard" width="400px" />

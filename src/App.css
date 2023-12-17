@@ -61,6 +61,7 @@
   /* font-style: italic; */
   font-weight: 700;
   text-shadow: 2px 5px #3b3b3b;
+  color: rgb(195, 195, 195);
 }
 
 .currentDate{
@@ -91,7 +92,7 @@
   position: relative;
   margin: 5px;
   padding: 5px;
-  width: 280px;
+  width: 260px;
   height: 80px;
 
   border: 1px solid gray;
