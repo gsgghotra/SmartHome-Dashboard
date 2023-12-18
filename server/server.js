@@ -103,10 +103,54 @@ app.get('/callback', async (req, res) => {
   }
 });
 
+// Function to refresh tokens
+const refreshTokens = async () => {
+  try {
+    const response = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: storedTokens.refresh_token,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+        },
+      }
+    );
+
+    storedTokens = { ...storedTokens, ...response.data };
+    return storedTokens;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Middleware to check token expiration and refresh if needed
+const checkTokenExpiration = async (req, res, next) => {
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  if (storedTokens.expires_at && currentTime >= storedTokens.expires_at) {
+    try {
+      const refreshedTokens = await refreshTokens();
+      req.tokens = refreshedTokens;
+      next();
+    } catch (error) {
+      res.status(401).send('Token refresh failed');
+    }
+  } else {
+    req.tokens = storedTokens;
+    next();
+  }
+};
+
 // Route to get stored tokens
-app.get('/get-tokens', (req, res) => {
-  res.json(storedTokens);
+// Route to get stored tokens with token refresh check
+app.get('/get-tokens', checkTokenExpiration, (req, res) => {
+  res.json(req.tokens);
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

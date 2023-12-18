@@ -17,11 +17,11 @@ const GetUser = (props) => {
             const response = await fetch('https://api.spotify.com/v1/me', settings);
             const data = await response.json();
 
-            if(data.error){
-                if(data.error.status === 401){
-                    props.loginBtn();
-                }
-            }
+            // if(data.error){
+            //     if(data.error.status === 401){
+            //         props.loginBtn();
+            //     }
+            // }
 
             setUserData(data.display_name)
         
