@@ -76,7 +76,7 @@ const HomeControls = () => {
 
     return (
         <Col className='column'>
-            <p className='label'>Google Home Controls</p>
+            <p className='label'>Smart Devices</p>
             <Container className='mt-2 homeContainer'>
                 {loading ? (
                     <p>Loading...</p>
@@ -85,7 +85,7 @@ const HomeControls = () => {
                 ) : (
                     Array.from(lights.values()).map((light, index) => (
                         <Button key={index} data-light={index} data-state={light.state.on} data-reachable={light.state.reachable}
-                            className={ light.state.reachable? light.state.on ? 'homeBtn homeBtn-on': 'homeBtn homeBtn-off' : 'homeBtn'} 
+                            className={ light.state.reachable? light.state.on ? 'homeBtn homeBtn-on': 'homeBtn homeBtn-off' : 'homeBtn homeBtn-off'} 
                             onClick={handleLightControl}>
 
                             <img src={ light.state.on && light.state.reachable ? imageLighton : imageLightoff } className='bulb' alt="Bulb on" />

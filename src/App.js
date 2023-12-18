@@ -8,6 +8,7 @@ import CurrentTime from './CurrentTime';
 import Header from './Header';
 import HomeControls from './HomeControls';
 import SpotifyPlayer from './Spotify/SpotifyPlayer';
+import Footer from './Footer';
 
 function App() {
   return (
@@ -24,12 +25,13 @@ function App() {
           <Col className='column'>
             Live weather
             </Col>
-          <Col className='column bg-gray'>
+          <Col className='column'>
             {/* <MusicPlayer></MusicPlayer> */}
-            <SpotifyPlayer></SpotifyPlayer>
+            {/* <SpotifyPlayer></SpotifyPlayer> */}
           </Col>
         </Row>
       </Container>
+      <Footer></Footer>
     </div>
   );
 }

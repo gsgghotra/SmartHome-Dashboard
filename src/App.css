@@ -30,22 +30,27 @@
 /*  */
 
 .App{
-  background-color: black;
+  background-color: #191919;
   color: white;
   height: 100vh;
   max-width: 100%;
   max-height: 100vh;
+  overflow: hidden;
+  position: fixed;
 }
 
   .mainContrainer{
-    width: 100% !important;
-    max-width: 100% !important;
+    position: fixed;
+    overflow: hidden;
+    min-height: 100vh;
+    max-height: 100vh;
+    scroll-behavior: auto;
   }
 
 
 
 .navbar{
-  background-color: black;
+  background-color: #333333;
   color: white !important;
   float: right;
 }
@@ -71,7 +76,7 @@
 }
 
 .bg-body-tertiary{
-  background-color: black !important;
+  background-color: #191919 !important;
   display: grid;
   justify-content: end;
   width: 100%;
@@ -79,6 +84,10 @@
 
 .buttons{
   background-color: rgb(37, 37, 37);
+}
+
+.buttons span {
+  padding: 0px 10px;
 }
 
 .homeContainer{
@@ -94,31 +103,38 @@
   padding: 5px;
   width: 260px;
   height: 80px;
-
-  border: 1px solid gray;
-  background-color: black;
+  outline: none;
+  border: 1px solid rgb(73, 73, 73);
+  background-color: transparent;
   color: aliceblue;
   border-radius: 20px;
   display: flex;
   justify-content: left;
   align-items: self-start;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
 }
 .homeBtn-on{
-  box-shadow: rgba(255, 255, 255, 0.34) 0px 4px 12px;
+  box-shadow: rgba(255, 255, 255, 0.20) 0px 2px 6px;
 }
 .homeBtn-off{
-  box-shadow: rgb(203 203 203 / 10%) 0px 4px 12px;
+  box-shadow: rgba(145, 145, 145, 0.2) 0px 2px 6px;
 }
 
 .homeBtn:hover{
-  background-color: #1f1f1f !important;
-  border-color: #3b3b3b !important;
+  background-color: transparent !important;
+  border: 1px solid rgb(73, 73, 73);
 }
 
 
-.homeBtn:active, .homeBtn:visited, .homeBtn:focus{
-  border: 1px solid gray;
-  background-color: black !important;
+.homeBtn:active{
+  border: 1px solid rgb(73, 73, 73) !important;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.homeBtn:focus{
+  border: 1px solid rgb(73, 73, 73) !important;
 }
 
 .label{
@@ -133,6 +149,7 @@
   left: -10px;
   top: 0;
   display: inline-block;
+  opacity: 0.75;
 }
 
 .deviceName{
@@ -146,7 +163,7 @@
 }
 
 .deviceStatus{
-  color: #3b3b3b;
+  color: #747474;
     display: block;
     width: 67%;
     position: absolute;
@@ -154,4 +171,13 @@
     right: 0;
     /* background: aliceblue; */
     text-align: left;
+}
+
+.footer{
+  background: #191919 !important;
+  position: fixed !important;
+  height: 80px;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
 }
