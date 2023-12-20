@@ -3,6 +3,9 @@
 .App {
   text-align: center;
   font-family: 'Poppins', sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .App-logo {
@@ -33,7 +36,7 @@
   background-color: #191919;
   color: white;
   height: 100vh;
-  max-width: 100%;
+  width: -webkit-fill-available;
   max-height: 100vh;
   overflow: hidden;
   position: fixed;
@@ -55,10 +58,18 @@
   float: right;
 }
 
-.topRow{
-  height: 250px;
-    align-content: center;
+.brand{
+  left: 80px;
+  position: absolute;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 
+.topRow{
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .currentTime{
@@ -70,9 +81,10 @@
 }
 
 .currentDate{
-  font-size: 24px;
+  font-size: 30px;
   color: gray;
-  margin-bottom: -12px;
+  margin-bottom: 0px;
+  font-family: 'Poppins';
 }
 
 .bg-body-tertiary{
