@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import Toast from 'react-bootstrap/Toast';
 
 import refreshIcon from './assets/images/icons-pack/reload.png'
 import settingIcon from './assets/images/icons-pack/setting.png'
@@ -18,6 +19,16 @@ import { useState } from 'react';
 const Header = () => {
 
     const [selectedThemeIcon, setThemeIcon] = useState(lightIcon);
+    const [showA, setShowA] = useState(false);
+    const toggleShowA = () => {
+        setShowA(!showA);
+        ///Auto hide
+        if(showA){
+            setTimeout(()=>{
+                setShowA(!showA);
+            }, 10000)
+        }
+    }
 
     function refresher(){
         window.location.reload(true);
@@ -67,17 +78,21 @@ const Header = () => {
         <>
             <Navbar expand="lg" data-bs-theme="dark" className="bg-body-tertiary mb-1">
                 <Container>
-                    <Button variant="secondary" id="fullScreen" className='buttons m-2' onClick={toggleFullScreen}>
-                        <img src={fullScreenIcon} alt="Theme Button"></img>
-                    </Button>
-                    <Button variant="secondary" id="themeConvertor" className='buttons m-2' onClick={themeHandler}>
-                        <img src={selectedThemeIcon} alt="Theme Button"></img>
-                    </Button>
-                    {/* <Navbar.Brand href="#">SmartHome Dashboard</Navbar.Brand> */}
-                    <Button variant="secondary" className='buttons m-2' onClick={refresher}>
-                        <img src={refreshIcon} alt="Refresh App"></img>
-                    </Button>
-                    <Button variant="secondary" className='buttons me-4'>
+                <Toast show={showA} onClose={toggleShowA} animation={false} className='toast'>
+                        <Toast.Body className='settingsToast'>
+                        <Button variant="secondary" id="fullScreen" className='buttons m-2' onClick={toggleFullScreen}>
+                            <img src={fullScreenIcon} alt="Theme Button"></img>
+                        </Button>
+                        <Button variant="secondary" id="themeConvertor" className='buttons m-2' onClick={themeHandler}>
+                            <img src={selectedThemeIcon} alt="Theme Button"></img>
+                        </Button>
+                        {/* <Navbar.Brand href="#">SmartHome Dashboard</Navbar.Brand> */}
+                        <Button variant="secondary" className='buttons m-2' onClick={refresher}>
+                            <img src={refreshIcon} alt="Refresh App"></img>
+                        </Button>
+                        </Toast.Body>
+                    </Toast>
+                    <Button variant="secondary" className='buttons me-4' onClick={toggleShowA}>
                         <img src={settingIcon} alt="Setting" ></img>
                     </Button>
                 </Container>

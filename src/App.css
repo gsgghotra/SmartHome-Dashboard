@@ -97,10 +97,22 @@
   width: 100%;
 }
 
+.toast{
+  border: none;
+  width:max-content;
+}
+.settingsToast{
+  padding: 0;
+  margin: 0;
+  background-color: var(--DARK_BACKGROUND);
+  border: none;
+}
+
 .buttons{
   background-color: var(--DARK_BACKGROUND);
   box-shadow: none;
   border: 1px solid rgb(67, 67, 67) !important;
+  margin: 0px 5px !important;
 }
 
 .buttons:hover{
@@ -213,3 +225,4 @@
   padding: 0;
   margin: 0;
 }
+
