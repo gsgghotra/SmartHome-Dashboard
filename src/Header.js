@@ -25,13 +25,14 @@ const Header = () => {
         ///Auto hide
         if(showA){
             setTimeout(()=>{
-                setShowA(!showA);
-            }, 10000)
+                setShowA(false);
+            }, 5000)
         }
     }
 
     function refresher(){
         window.location.reload(true);
+        setShowA(!showA);
     }
 
     const themeHandler = () => {
@@ -72,6 +73,7 @@ const Header = () => {
             }
             e.target.dataset.fullscreen = "on";
         }
+        toggleShowA()
     }
 
     return (
