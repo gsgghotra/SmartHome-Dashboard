@@ -9,6 +9,7 @@ import Header from './Header';
 import HomeControls from './HomeControls';
 import SpotifyPlayer from './Spotify/SpotifyPlayer';
 import Footer from './Footer';
+import Weather from './Weather/Weather';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         </Row>
         <Row className='bottomRow'>
           <Col className='column'>
-            Live weather
+            <Weather> </Weather>
             </Col>
           <Col className='column'>
             {/* <MusicPlayer></MusicPlayer> */}
