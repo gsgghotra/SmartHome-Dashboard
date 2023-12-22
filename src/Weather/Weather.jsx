@@ -1,5 +1,7 @@
 import { react, useState } from "react";
 import { Card, Col, Container, Row, Nav } from 'react-bootstrap';
+import cloudyIcon from './icons/cloudy.png';
+
 const Weather = () => {
 
     const [weatherCity, setWeatherCity] = useState();
@@ -8,13 +10,7 @@ const Weather = () => {
     const [maxTemp, setMaxTemp] = useState();
     const [minTemp, setMinTemp] = useState();
     const [feelTemp, setFeelTemp] = useState();
-      // State to manage the active tab
-    const [activeTab, setActiveTab] = useState('Weather');
 
-    // Function to handle tab switch
-    const handleTabSwitch = (tab) => {
-        setActiveTab(tab);
-    };
 
     const halfNumber = "4ed3e1";
     const mixMatch = "bea4ef0388";
@@ -86,57 +82,38 @@ const Weather = () => {
 
     return(
         <>
-        <Container className='multiTabContainer'>
-        {/* Navigation menu */}
-        <Nav fill variant="tabs" defaultActiveKey="Weather">
-            <Nav.Item>
-            <Nav.Link eventKey="Weather" onClick={() => handleTabSwitch('Weather')}>
-                Weather
-            </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-            <Nav.Link eventKey="Timer" onClick={() => handleTabSwitch('Timer')}>
-                Timer
-            </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-            <Nav.Link eventKey="Health" onClick={() => handleTabSwitch('Health')}>
-                Health
-            </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-            <Nav.Link eventKey="Football" onClick={() => handleTabSwitch('Football')}>
-                Football
-            </Nav.Link>
-            </Nav.Item>
-        </Nav>
-
-        {/* Content based on active tab */}
-        {activeTab === 'Weather' && (
-            <Row>
-            {/* Weather card content here */}
-            {/* ... */}
-            </Row>
-        )}
-        {activeTab === 'Timer' && (
-            <Row>
-            {/* Timer card content here */}
-            {/* ... */}
-            </Row>
-        )}
-        {activeTab === 'Health' && (
-            <Row>
-            {/* Health card content here */}
-            {/* ... */}
-            </Row>
-        )}
-        {activeTab === 'Football' && (
-            <Row>
-            {/* Football card content here */}
-            {/* ... */}
-            </Row>
-        )}
-        </Container>
+                <Container className="innerTab">
+                    <Row style={{ height: '70px'}}>
+                        <Col xs={6}>
+                        <h4 style={{ textAlign: 'left', margin: '20px' }}>{weatherCity}</h4>
+                        </Col>
+                        <Col xs={6} className="text-right">
+                        <p style={{ margin: '20px' }}>{humidity}%</p>
+                        </Col>
+                    </Row>
+                    <Row style={{ height: '250px' }}>
+                        <Col xs={8} >
+                        {/* Left side with weather image and temperature */}
+                        <Row className="justify-content-center align-items-center" style={{ height: '100%' }}>
+                            <Col xs={6}>
+                            <img src={cloudyIcon}  alt="Weather" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                            <p>{weatherMain}</p>
+                            </Col>
+                            <Col xs={6} className="text-center">
+                            <p className="temprature">{Math.round(feelTemp)}°C</p>
+                            <p>H: {Math.round(maxTemp)} °C</p>
+                            <p>L: {Math.round(minTemp)} °C</p>
+                            </Col>
+                        </Row>
+                        </Col>
+                        <Col xs={4}>
+                        {/* Right side empty Bootstrap card */}
+                        <Card style={{ height: '100%', border: '1px solid #252525' , background: 'transparent'}}>
+                            <Card.Body></Card.Body>
+                        </Card>
+                        </Col>
+                    </Row>
+                    </Container>
         </>
     )
 }

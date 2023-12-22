@@ -10,6 +10,7 @@ import HomeControls from './HomeControls';
 import SpotifyPlayer from './Spotify/SpotifyPlayer';
 import Footer from './Footer';
 import Weather from './Weather/Weather';
+import Tabs from './Tabs';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         </Row>
         <Row className='bottomRow'>
           <Col className='column'>
-            <Weather> </Weather>
+            <Tabs></Tabs>
             </Col>
           <Col className='column'>
             {/* <MusicPlayer></MusicPlayer> */}
