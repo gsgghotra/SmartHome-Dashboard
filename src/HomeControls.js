@@ -5,6 +5,7 @@ import imageLighton from "./assets/images/btn-on.png";
 import imageLightoff from "./assets/images/btn-off.png";
 import LIGHTS_URL from './secrets';
 import { useEffect, useState } from 'react';
+let longPressTimer;
 
 const HomeControls = () => {
     const [lights, setLights] = useState(new Map());
@@ -70,6 +71,22 @@ const HomeControls = () => {
 
     }
 
+    const handleMouseDown = (on, reachable) => {
+        longPressTimer = setTimeout(() => longClick(on, reachable), 500);
+      };
+      
+      const handleMouseUp = () => {
+        clearTimeout(longPressTimer);
+      };
+      
+      const longClick = (on, reachable) => {
+        console.log("Long click works", on, reachable);
+        // Handle your logic for long press
+      };
+
+
+
+
     useEffect(() => {
         fetchLights();
     }, []);
@@ -86,7 +103,10 @@ const HomeControls = () => {
                     Array.from(lights.values()).map((light, index) => (
                         <Button key={index} data-light={index} data-state={light.state.on} data-reachable={light.state.reachable}
                             className={ light.state.reachable? light.state.on ? 'homeBtn homeBtn-on': 'homeBtn homeBtn-off' : 'homeBtn homeBtn-off'} 
-                            onClick={handleLightControl}>
+                            onClick={handleLightControl}
+                            onMouseDown={() => handleMouseDown(light.state.on, light.state.reachable)}
+                            onMouseUp={handleMouseUp}
+                            >
 
                             <img src={ light.state.on && light.state.reachable ? imageLighton : imageLightoff } className='bulb' alt="Bulb on" />
                             <span className='deviceName'>{light.name}</span>

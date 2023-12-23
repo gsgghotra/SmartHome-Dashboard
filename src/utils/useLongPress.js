@@ -6,9 +6,7 @@ export default function useLongPress(callback = () => {}, ms = 300) {
   useEffect(() => {
     let timerId;
     if (startLongPress) {
-      timerId = setTimeout(()=>{
-        console.log("HELLO MATE")
-      }, ms);
+      timerId = setTimeout(callback, ms);
     } else {
       clearTimeout(timerId);
     }
