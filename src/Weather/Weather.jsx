@@ -31,6 +31,7 @@ const Weather = () => {
         
         if (requestType === 'weather'){ //If request type is weather, fetch weather
 
+            fetchWeather(baseURL, cityName);
             setInterval (()=>{
                 fetchWeather(baseURL, cityName);
             }, 600000)
