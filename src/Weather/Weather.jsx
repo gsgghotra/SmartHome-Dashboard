@@ -30,7 +30,11 @@ const Weather = () => {
         let baseURL = "https://api.openweathermap.org/data/2.5/"+requestType+"?lat="+latitude+"&lon="+longitude+"&units=metric&appid="+temp_token;
         
         if (requestType === 'weather'){ //If request type is weather, fetch weather
-            fetchWeather(baseURL, cityName);
+
+            setInterval (()=>{
+                fetchWeather(baseURL, cityName);
+            }, 600000)
+            
         }
         else if (requestType === 'forecast'){ // return baseURL;
             return baseURL;
@@ -88,7 +92,7 @@ const Weather = () => {
                         <h4 style={{ textAlign: 'left', margin: '20px' }}>{weatherCity}</h4>
                         </Col>
                         <Col xs={6} className="text-right">
-                        <p style={{ margin: '20px' }}>{humidity}%</p>
+                        <p style={{ margin: '20px' }}>Humidity: {humidity}%</p>
                         </Col>
                     </Row>
                     <Row style={{ height: '250px' }}>
@@ -108,7 +112,7 @@ const Weather = () => {
                         </Col>
                         <Col xs={4}>
                         {/* Right side empty Bootstrap card */}
-                        <Card style={{ height: '100%', border: '1px solid #252525' , background: 'transparent'}}>
+                        <Card style={{ height: '100%' , background: 'transparent'}}>
                             <Card.Body></Card.Body>
                         </Card>
                         </Col>

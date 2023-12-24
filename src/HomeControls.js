@@ -5,12 +5,21 @@ import imageLighton from "./assets/images/btn-on.png";
 import imageLightoff from "./assets/images/btn-off.png";
 import LIGHTS_URL from './secrets';
 import { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import useLongPress from './utils/useLongPress';
 let longPressTimer;
 
 const HomeControls = () => {
     const [lights, setLights] = useState(new Map());
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+
 
     const fetchLights = () => {
             fetch(LIGHTS_URL)
@@ -70,19 +79,16 @@ const HomeControls = () => {
         })
 
     }
-
-    const handleMouseDown = (on, reachable) => {
-        longPressTimer = setTimeout(() => longClick(on, reachable), 500);
-      };
-      
-      const handleMouseUp = () => {
-        clearTimeout(longPressTimer);
-      };
-      
-      const longClick = (on, reachable) => {
-        console.log("Long click works", on, reachable);
+    
+    const longClick = (on, reachable) => {
+        handleShow()
+        console.log("Long click works", on);
         // Handle your logic for long press
-      };
+    };
+
+    const backspaceLongPress = useLongPress(()=>{
+        longClick("HELLO USE")
+    }, 200);
 
 
 
@@ -101,19 +107,30 @@ const HomeControls = () => {
                     <p>Error fetching lights data</p>
                 ) : (
                     Array.from(lights.values()).map((light, index) => (
-                        <Button key={index} data-light={index} data-state={light.state.on} data-reachable={light.state.reachable}
-                            className={ light.state.reachable? light.state.on ? 'homeBtn homeBtn-on': 'homeBtn homeBtn-off' : 'homeBtn homeBtn-off'} 
-                            onClick={handleLightControl}
-                            onMouseDown={() => handleMouseDown(light.state.on, light.state.reachable)}
-                            onMouseUp={handleMouseUp}
-                            >
+                        <div key={index} >
+                            <Button key={index} data-light={index} data-state={light.state.on} data-reachable={light.state.reachable}
+                                className={ light.state.reachable? light.state.on ? 'homeBtn homeBtn-on': 'homeBtn homeBtn-off' : 'homeBtn homeBtn-off'} 
+                                onClick={handleLightControl}
+                                >
 
-                            <img src={ light.state.on && light.state.reachable ? imageLighton : imageLightoff } className='bulb' alt="Bulb on" />
-                            <span className='deviceName'>{light.name}</span>
-                            <span className='deviceStatus'>
-                                {light.state.reachable? light.state.on && light.state.reachable ? 'ON' : "OFF" : 'Not Reachable'}
-                            </span>
-                        </Button>
+                                <img src={ light.state.on && light.state.reachable ? imageLighton : imageLightoff } className='bulb' alt="Bulb on" />
+                                <span className='deviceName'>{light.name}</span>
+                                <span className='deviceStatus'>
+                                    {light.state.reachable? light.state.on && light.state.reachable ? 'ON' : "OFF" : 'Not Reachable'}
+                                </span>
+                            </Button>
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                                <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                <Button variant="primary" onClick={handleClose}>
+                                    Save Changes
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </div>
                     ))
                 )}
             </Container>
