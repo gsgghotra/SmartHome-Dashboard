@@ -1,6 +1,9 @@
 import { react, useState } from "react";
 import { Card, Col, Container, Row, Nav } from 'react-bootstrap';
 import cloudyIcon from './icons/cloudy.png';
+import tempIcon from './icons/range.png';
+import windIcon from './icons/windwhite.png';
+import humidityIcon from './icons/humidity.png';
 
 const Weather = () => {
 
@@ -10,6 +13,9 @@ const Weather = () => {
     const [maxTemp, setMaxTemp] = useState();
     const [minTemp, setMinTemp] = useState();
     const [feelTemp, setFeelTemp] = useState();
+    const [wind, setWind] = useState();
+
+    // Math.round(wind.speed * 3.6)+ " KPH"
 
 
     const halfNumber = "4ed3e1";
@@ -34,7 +40,7 @@ const Weather = () => {
             fetchWeather(baseURL, cityName);
             setInterval (()=>{
                 fetchWeather(baseURL, cityName);
-            }, 600000)
+            }, 1200000)
             
         }
         else if (requestType === 'forecast'){ // return baseURL;
@@ -62,7 +68,8 @@ const Weather = () => {
             //Display
 
             //displayWeather(cityName, weather, main, wind, sys, timezone);
-            console.log(sys)
+            console.log(wind)
+            setWind(wind.speed)
             setWeatherMain(weather[0].main)
             setWeatherCity(name)
             setMaxTemp(main.temp_max)
@@ -80,7 +87,7 @@ const Weather = () => {
             return response.json();
         })
         .then(function(data){
-            //console.log(data);
+            console.log(data);
         })
     }
 
@@ -92,8 +99,8 @@ const Weather = () => {
                         <Col xs={6}>
                         <h4 style={{ textAlign: 'left', margin: '20px' }}>{weatherCity}</h4>
                         </Col>
-                        <Col xs={6} className="text-right">
-                        <p style={{ margin: '20px' }}>Humidity: {humidity}%</p>
+                        <Col xs={6} className="text-right weatherTopRight">
+                            {/* <p>Feel Like: {Math.round(feelTemp)} °C</p> */}
                         </Col>
                     </Row>
                     <Row style={{ height: '250px' }}>
@@ -103,18 +110,28 @@ const Weather = () => {
                             <Col xs={6}>
                             <img src={cloudyIcon}  alt="Weather" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                             <p>{weatherMain}</p>
+                            <span style={{fontSize: '18px'}}>{Math.round(minTemp)} 
+                                <span style={{fontSize: '12px', position: 'relative', top: '-4px'}}> °C</span>
+                            </span>
+                            <img src={tempIcon} alt="temprature range Icon" style={{width: '30px', margin: '0px 5px'}}></img> 
+
+                            <span style={{fontSize: '18px'}}>{Math.round(maxTemp)} 
+                                <span style={{fontSize: '12px', position: 'relative', top: '-4px'}}> °C</span>
+                            </span>
                             </Col>
+
+                            
                             <Col xs={6} className="text-center">
-                            <p className="temprature">{Math.round(feelTemp)}°C</p>
-                            <p>H: {Math.round(maxTemp)} °C</p>
-                            <p>L: {Math.round(minTemp)} °C</p>
+                            <p className="temprature">{Math.round(feelTemp)}<span style={{fontSize: '24px'}}>°C</span></p>
+                            <p style={{ margin: '20px' }}><img src={humidityIcon} alt="Weather humidity Icon" style={{width: '30px'}}></img> {humidity}%</p>
+                            <p style={{ margin: '20px' }}><img src={windIcon} alt="Weather wind Icon" style={{width: '30px'}}></img> {Math.round(wind * 3.6)}  KPH</p>
                             </Col>
                         </Row>
                         </Col>
                         <Col xs={4}>
                         {/* Right side empty Bootstrap card */}
                         <Card style={{ height: '100%' , background: 'transparent'}}>
-                            <Card.Body></Card.Body>
+                            <Card.Body>Tomorrow</Card.Body>
                         </Card>
                         </Col>
                     </Row>

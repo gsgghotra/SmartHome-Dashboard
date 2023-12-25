@@ -243,7 +243,7 @@
   color: #aaaaaa;
 }
 .innerTab{
-  margin: 0px auto;
+  margin: 5px auto;
   height: 346px;
   /* border: 1px solid #252525; */
   /* border: 1px solid red; */
@@ -271,3 +271,17 @@
 .temprature{
   font-size: 60px;
 }
+
+.temprature span {
+  font-size: 24px;
+  position: relative;
+  top: -25px;
+  left: 5px;
+}
+
+.weatherTopRight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
