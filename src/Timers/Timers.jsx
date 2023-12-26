@@ -9,6 +9,7 @@ function Timers (props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const backspaceLongPress = useLongPress(handleShow, 500);
+    console.log("TIMERS")
 
     return (
         <>

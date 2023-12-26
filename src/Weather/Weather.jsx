@@ -1,11 +1,14 @@
-import { react, useState } from "react";
-import { Card, Col, Container, Row, Nav } from 'react-bootstrap';
+import { useState } from "react";
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import cloudyIcon from './icons/cloudy.png';
 import tempIcon from './icons/range.png';
 import windIcon from './icons/windwhite.png';
 import humidityIcon from './icons/humidity.png';
+import Forecasting from "./Forecasting";
 
 const Weather = () => {
+
+    console.log("Weather Triggered")
 
     const [weatherCity, setWeatherCity] = useState();
     const [weatherMain, setWeatherMain] = useState();
@@ -16,40 +19,23 @@ const Weather = () => {
     const [wind, setWind] = useState();
 
     // Math.round(wind.speed * 3.6)+ " KPH"
-
-
     const halfNumber = "4ed3e1";
     const mixMatch = "bea4ef0388";
     const encrypt = "ded72698";
     const endCode = "1457aa53";
 
     let temp_token = halfNumber+mixMatch+encrypt+endCode;
-
     //By deafult load London
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=51.517490&lon=-0.427460&units=metric&appid=" + temp_token;
 
-    let queryURL = urlGenerator('weather','London', 51.517490, -0.427460);
-
-
-    //The location will be used to get lon and lat cordinates
-    function urlGenerator (requestType, cityName, latitude, longitude){
-        //Generate the url for weather fetch
-        let baseURL = "https://api.openweathermap.org/data/2.5/"+requestType+"?lat="+latitude+"&lon="+longitude+"&units=metric&appid="+temp_token;
-        
-        if (requestType === 'weather'){ //If request type is weather, fetch weather
-
-            fetchWeather(baseURL, cityName);
-            setInterval (()=>{
-                fetchWeather(baseURL, cityName);
-            }, 1200000)
+    fetchWeather(queryURL);
+    setInterval (()=>{
+        fetchWeather(queryURL);
+    }, 1200000)
             
-        }
-        else if (requestType === 'forecast'){ // return baseURL;
-            return baseURL;
-        }
-    }
 
     //Fetch current weather
-    function fetchWeather(queryURL, cityName){
+    function fetchWeather(queryURL){
         fetch(queryURL)
         .then(function(response){
             //Response
@@ -60,15 +46,15 @@ const Weather = () => {
             //console.log("This is weather data ", data);
 
             //Information structure using ES6+ object destructuring
-            const {name, weather, main, wind, sys, timezone} = data;
+            // const {name, weather, main, wind, sys, timezone} = data;
+            const {name, weather, main, wind } = data;
 
             //Forecasting 5 days url
-            queryURL = urlGenerator('forecast',cityName, data.coord.lat, data.coord.lon);
-            fetchForecasting(queryURL);
+            // queryURL = urlGenerator('forecast',cityName, data.coord.lat, data.coord.lon);
             //Display
 
             //displayWeather(cityName, weather, main, wind, sys, timezone);
-            console.log(wind)
+            // console.log(wind)
             setWind(wind.speed)
             setWeatherMain(weather[0].main)
             setWeatherCity(name)
@@ -78,20 +64,6 @@ const Weather = () => {
             setHumidity(main.humidity)
         })
     }
-
-    //5 Days forecasting
-    function fetchForecasting(queryURL){
-        //console.log(queryURL);
-        fetch(queryURL)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            console.log(data);
-        })
-    }
-
-
     return(
         <>
                 <Container className="innerTab">
@@ -131,7 +103,10 @@ const Weather = () => {
                         <Col xs={4}>
                         {/* Right side empty Bootstrap card */}
                         <Card style={{ height: '100%' , background: 'transparent'}}>
-                            <Card.Body>Tomorrow</Card.Body>
+                            <Card.Body>
+                                <Forecasting token={temp_token}></Forecasting>
+                            </Card.Body>
+
                         </Card>
                         </Col>
                     </Row>

@@ -13,6 +13,7 @@ import Weather from './Weather/Weather';
 import Tabs from './Tabs';
 
 function App() {
+  console.log("App triggered")
   return (
     <div className="App">
       <Header></Header>
