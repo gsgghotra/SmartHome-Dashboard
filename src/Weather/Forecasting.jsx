@@ -57,7 +57,7 @@ const Forecasting = (props) => {
     console.log("Forecasting Mounted")
     return(
         <>
-            <p> Forecasting </p>
+            <p> Tomorrow </p>
             <p>H: {tomMaxTemp}</p>
             <p>L: {tomMinTemp}</p>
         </>
