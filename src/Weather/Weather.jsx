@@ -75,7 +75,7 @@ const Weather = () => {
                             {/* <p>Feel Like: {Math.round(feelTemp)} °C</p> */}
                         </Col>
                     </Row>
-                    <Row style={{ height: '250px' }}>
+                    <Row style={{ height: '230px' }}>
                         <Col xs={8} >
                         {/* Left side with weather image and temperature */}
                         <Row className="justify-content-center align-items-center" style={{ height: '100%' }}>

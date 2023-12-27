@@ -5,6 +5,8 @@ const Forecasting = (props) => {
     // Tomorrow weather
     const [tomMaxTemp, setTomMaxTemp] = useState(0)
     const [tomMinTemp, setTomMinTemp] = useState(0)
+    const [weatherStatus, setWeatherStatus] = useState(0)
+    const [image, setImage] = useState(0)
     fetchForecasting("https://api.openweathermap.org/data/2.5/forecast?lat=51.517490&lon=-0.427460&units=metric&appid=" + props.token);
 
     //1 Days forecasting
@@ -50,16 +52,20 @@ const Forecasting = (props) => {
             }
         }
             // Apply batched state updates
+        setWeatherStatus(weatherStatus)
         setTomMaxTemp((prev) => Math.max(...newTomMaxTemp) || prev);
         setTomMinTemp((prev) => Math.min(...newTomMinTemp) || prev);
+        setImage(`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`)
     }
 
     console.log("Forecasting Mounted")
     return(
         <>
             <p> Tomorrow </p>
-            <p>H: {tomMaxTemp}</p>
-            <p>L: {tomMinTemp}</p>
+            <p>{weatherStatus}</p>
+            <img src={image}></img>
+            <p  style={{fontSize: '18px' }}>H: {tomMaxTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p>
+            <p  style={{fontSize: '18px' }}>L: {tomMinTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p>
         </>
     )
 }

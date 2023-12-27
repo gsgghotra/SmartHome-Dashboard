@@ -153,7 +153,7 @@
   height: 80px;
   outline: none;
   border: 1px solid rgb(73, 73, 73);
-  background-color: transparent;
+  background-color: var(--DARK_BACKGROUND);
   color: aliceblue;
   border-radius: 20px;
   display: flex;
@@ -170,7 +170,7 @@
 }
 
 .homeBtn:hover{
-  background-color: transparent !important;
+  background-color: var(--DARK_BACKGROUND) !important;
   border: 1px solid rgb(73, 73, 73);
 }
 
@@ -287,3 +287,11 @@
     align-items: center;
 }
 
+.card {
+    height: 90%;
+    margin: 5px;
+    background: transparent;
+    border: 1px solid #464646;
+    border-radius: 20px;
+    color: #5d5d5d;
+}
