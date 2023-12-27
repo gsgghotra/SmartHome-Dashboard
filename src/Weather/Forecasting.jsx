@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useState } from "react";
+import tempIcon from "./icons/graphs.png"
 
 const Forecasting = (props) => {
     // Tomorrow weather
@@ -61,11 +62,20 @@ const Forecasting = (props) => {
     console.log("Forecasting Mounted")
     return(
         <>
-            <p> Tomorrow </p>
-            <p>{weatherStatus}</p>
+            <p style={{margin: '0px'}}> Tomorrow </p>
+            
             <img src={image}></img>
-            <p  style={{fontSize: '18px' }}>H: {tomMaxTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p>
-            <p  style={{fontSize: '18px' }}>L: {tomMinTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p>
+            <p>{weatherStatus}</p>
+            <span style={{fontSize: '18px'}}>{tomMinTemp} 
+                <span style={{fontSize: '12px', position: 'relative', top: '-4px'}}> °C</span>
+            </span>
+            <img src={tempIcon} alt="temprature range Icon" style={{width: '30px', margin: '0px 10px'}}></img> 
+
+            <span style={{fontSize: '18px'}}>{tomMaxTemp} 
+                <span style={{fontSize: '12px', position: 'relative', top: '-4px'}}> °C</span>
+            </span>
+            {/* <p  style={{fontSize: '18px' }}>H: {tomMaxTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p>
+            <p  style={{fontSize: '18px' }}>L: {tomMinTemp}<span style={{fontSize: '14px', position:'relative', top:'-3px'}}> °C</span></p> */}
         </>
     )
 }

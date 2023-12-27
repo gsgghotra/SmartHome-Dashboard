@@ -288,10 +288,13 @@
 }
 
 .card {
-    height: 90%;
-    margin: 5px;
-    background: transparent;
-    border: 1px solid #464646;
-    border-radius: 20px;
-    color: #5d5d5d;
+  height: 90%;
+  margin: 5px;
+  background: transparent;
+  border: 1px solid #202020;
+  border-radius: 15px;
+  color: #5d5d5d;
+  position: relative;
+  top: -50px;
+  right: 10px;
 }
