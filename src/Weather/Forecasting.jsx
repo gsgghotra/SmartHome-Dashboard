@@ -25,7 +25,7 @@ const Forecasting = (props) => {
 
     //Display 5 days forecasting
     function displayforecasting(data){
-        console.log("DISPLAY FORECASTING TRIGGERED")
+        // console.log("DISPLAY FORECASTING TRIGGERED")
         let weatherIcon, weatherStatus, averageTemp;
         let newTomMaxTemp = [];
         let newTomMinTemp = [];
@@ -35,7 +35,7 @@ const Forecasting = (props) => {
 
             //Grab the mid day weather icon for future 5 days
             if (dayjs(data.list[i].dt_txt).format('HH') === '12'){
-                    console.log("FIND ME", data.list[i].dt_txt)
+                    // console.log("FIND ME", data.list[i].dt_txt)
                     weatherIcon =  data.list[i].weather[0].icon;
                     weatherStatus = data.list[i].weather[0].main;
                     averageTemp = Math.round(data.list[i].main.temp);
@@ -59,7 +59,7 @@ const Forecasting = (props) => {
         setImage(`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`)
     }
 
-    console.log("Forecasting Mounted")
+    // console.log("Forecasting Mounted")
     return(
         <>
             <p style={{margin: '0px'}}> Tomorrow </p>

@@ -4,10 +4,10 @@ import Col from 'react-bootstrap/Col';
 
 const CurrentTime =()=> {    
     const [todaysDate, setTodaysDate] = useState(dayjs().format('DD MMMM YYYY'));
-    const [currentTime , setCurrentTime] = useState(dayjs().format('HH : mm'));
+    const [currentTime , setCurrentTime] = useState(dayjs().format('hh : mm'));
 
     setInterval(()=>{
-        setCurrentTime(dayjs().format('HH : mm'));
+        setCurrentTime(dayjs().format('hh : mm'));
         setTodaysDate(dayjs().format('DD MMMM YYYY'));
     }, 1);
     return(

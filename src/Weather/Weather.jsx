@@ -5,10 +5,11 @@ import tempIcon from './icons/range.png';
 import windIcon from './icons/windwhite.png';
 import humidityIcon from './icons/humidity.png';
 import Forecasting from "./Forecasting";
+import dayjs from "dayjs";
 
 const Weather = () => {
 
-    console.log("Weather Triggered")
+    // console.log("Weather Triggered")
 
     const [weatherCity, setWeatherCity] = useState();
     const [weatherMain, setWeatherMain] = useState();
@@ -17,6 +18,8 @@ const Weather = () => {
     const [minTemp, setMinTemp] = useState();
     const [feelTemp, setFeelTemp] = useState();
     const [wind, setWind] = useState();
+
+    const [updatedTime, setUpdatedTime] = useState(0)
 
     // Math.round(wind.speed * 3.6)+ " KPH"
     const halfNumber = "4ed3e1";
@@ -44,7 +47,8 @@ const Weather = () => {
         .then(function(data){
             //Display Weather data
             //console.log("This is weather data ", data);
-
+            let currentTime = dayjs();
+            setUpdatedTime(dayjs(currentTime).format('hh:mm'))
             //Information structure using ES6+ object destructuring
             // const {name, weather, main, wind, sys, timezone} = data;
             const {name, weather, main, wind } = data;
@@ -72,6 +76,7 @@ const Weather = () => {
                         <h4 style={{ textAlign: 'left', margin: '20px' }}>{weatherCity}</h4>
                         </Col>
                         <Col xs={6} className="text-right weatherTopRight">
+                            <span>Last Update: {updatedTime}</span>
                             {/* <p>Feel Like: {Math.round(feelTemp)} °C</p> */}
                         </Col>
                     </Row>

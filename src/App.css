@@ -282,9 +282,13 @@
 }
 
 .weatherTopRight {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: end;
+  align-items: normal;
+  padding-top: 5px;
+  font-size: 12px;
+  padding-right: 30px;
+  color: #3c3c3c;
 }
 
 .card {
