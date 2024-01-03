@@ -2,6 +2,7 @@ import { react, useState } from "react";
 import { Card, Col, Container, Row, Nav } from 'react-bootstrap';
 import Weather from "./Weather/Weather";
 import Timers from "./Timers/Timers";
+import Todo from "./Todo/Todo";
 
 const Tabs =() => {
         // State to manage the active tab
@@ -57,8 +58,7 @@ const Tabs =() => {
             )}
             {activeTab === 'To-do' && (
                 <Row>
-                {/* Football card content here */}
-                {/* ... */}
+                    <Todo></Todo>
                 </Row>
             )}
             </Container>

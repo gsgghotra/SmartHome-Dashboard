@@ -302,3 +302,16 @@
   top: -10px;
   right: 10px;
 }
+
+/* To-do */
+.form-control {
+  background-color: transparent;
+}
+
+.form-control::placeholder {
+  color: #aaaaaa !important;
+}
+.list-group-item {
+  color: white;
+  background: #101010;
+}
