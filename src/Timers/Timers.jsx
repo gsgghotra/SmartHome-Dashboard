@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function Timers (props) {
+function Timers () {
     const [selectedOption, setSelectedOption] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -50,12 +50,12 @@ function Timers (props) {
 
     return (
         <div style= {{overflow:'scroll'}} className="innerTab container mt-4">
-        <h1 className="mb-4">Timer: {Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</h1>
-            <div className="form-group">
-                <label htmlFor="timerSelect">Select Timer:</label>
+            <div className="form-group" style={{width:'90%', margin:'0px auto'}}>
+                <label htmlFor="timerSelect" style={{marginRight: '10px'}}>Timer:</label>
                 <select
                 id="timerSelect"
                 className="form-control"
+                style={{width:'50%', display:'inline-block'}}
                 value={selectedOption}
                 onChange={handleOptionChange}
                 >
@@ -65,16 +65,32 @@ function Timers (props) {
                     </option>
                 ))}
                 </select>
+                <div style={{margin:'10px', display:'inline-block'}}>
+                    <button className="btn btn-primary mr-2" onClick={startTimer}>
+                        Start
+                    </button>
+                </div>
             </div>
-            <button className="btn btn-primary mr-2" onClick={startTimer}>
-                Start
-            </button>
-            <button className="btn btn-warning mr-2" onClick={pauseTimer}>
-                Pause
-            </button>
-            <button className="btn btn-danger" onClick={resetTimer}>
-                Reset
-            </button>
+
+            {/* Timer */}
+            {isRunning && 
+                <h1 style={{fontSize:'6em'}} className="mb-4">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</h1>
+            }
+
+            {/* Buttons */}
+            <div style={{margin:'10px'}}>
+                {isRunning && 
+                    <>
+                        {/* <button className="btn btn-warning mr-2" onClick={pauseTimer}>
+                            Pause
+                        </button> */}
+                        <button className="btn btn-danger" onClick={resetTimer}>
+                            Reset
+                        </button>
+                    </>
+                    }
+            </div>
+
         </div>
     );
 };

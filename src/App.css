@@ -248,6 +248,7 @@
 .innerTab{
   margin: 5px auto;
   height: 330px;
+  position: relative;
   /* border: 1px solid #252525; */
   /* border: 1px solid red; */
 }
@@ -307,6 +308,7 @@
 /* To-do */
 .form-control {
   background-color: transparent;
+  color: #aaaaaa !important;
 }
 
 .form-control::placeholder {
