@@ -13,11 +13,6 @@ const Footer = () => {
             <Navbar expand="lg" data-bs-theme="dark" className="bg-body-tertiary mb-1 footer">
                 <Container>
                     <Navbar.Brand className='brand' data-fullscreen="off">SmartHome Dashboard</Navbar.Brand>
-
-                    <Button variant="secondary" className='buttons m-2'>
-                        <img src={stopwatch} alt="Refresh App"></img>
-                        <span>Set Timer</span>
-                    </Button>
                     {/* <Button variant="secondary" className='buttons m-2'>
                         <img src={todo} alt="Refresh App"></img>
                         <span>Tasks</span>

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,200;1,700;1,900&display=swap');
 :root {
-  --DARK_BACKGROUND: #131313;
+  --DARK_BACKGROUND: #000000;
 }
 
 .App {
@@ -36,7 +36,7 @@
 /*  */
 
 .App{
-  background: var(--DARK_BACKGROUND) url("./assets/images/background.png") no-repeat fixed center;
+  background: var(--DARK_BACKGROUND) url("./assets/images/background2.png") no-repeat fixed center;
   color: white;
   height: 100vh;
   width: -webkit-fill-available;
@@ -86,12 +86,13 @@
 
 .currentDate{
   font-size: 30px;
-  color: gray;
+  color: rgb(180, 180, 180);
   line-height: 0.7;
   margin-bottom: 0px;
-  font-family:'Times New Roman', Times, serif;
-  word-spacing: 10px;
-  font-variant: small-caps;
+  font-weight: 400;
+  font-family: sans-serif;
+  word-spacing: 1px;
+  font-variant: all-petite-caps;
 }
 
 .bg-body-tertiary{
