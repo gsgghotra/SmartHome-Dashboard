@@ -14,18 +14,18 @@
 ### Progress Update
 - The time displays correctly
 - Smart devices controls are working, used [Philips-hue-Developers](https://developers.meethue.com/develop/get-started-2/)
+- Added (Weather Dashboard) and add weather info [Weather Dashboard](https://github.com/gsgghotra/Weather-Forecast-Dashboard)
 - Spotify works but still need a lot of work
+- Added settings option (Themes)
 
 #### Current Design
-<img src="./src/assets/images/screenshots/Screenshot_17dec.png" alt="current Desing" width="400px" />
+<img src="./src/assets/images/screenshots/screenshot0301.png" alt="current Desing" width="400px" />
 
 - Vinyl design for music player is removed due to UX reasons. Design is available on another project [Harmony Heal](https://github.com/gsgghotra/HarmonyHeal)
 
 ### Next steps
-- Add settings option (Themes)
 - Explore the way to open (open.spotify) on ipad as background 
 - Football Data [api-football](https://www.api-football.com/)
-- Use (Weather Dashboard) and add weather info [Weather Dashboard](https://github.com/gsgghotra/Weather-Forecast-Dashboard)
 - Implement Bill tracker [Bill Tracker](https://github.com/gsgghotra/BillTracker)
 - Google Assistant SDK [Assistant SDK](https://developers.google.com/assistant/sdk)
 

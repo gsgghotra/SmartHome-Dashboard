@@ -6,7 +6,7 @@ const Todo = () => {
 
 // Load tasks from local storage on component mount
     useEffect(() => {
-        const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+        const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
         console.log(storedTasks);
         setTasks(storedTasks);
     }, []);
@@ -14,8 +14,7 @@ const Todo = () => {
     // Save tasks to local storage whenever tasks change
     useEffect(() => {
         //avoid initial run to update local storage
-        if (tasks){
-            console.log("Second", tasks)
+        if (tasks !== null){
             localStorage.setItem('tasks', JSON.stringify(tasks));
         }
     }, [tasks]);
@@ -34,8 +33,8 @@ const Todo = () => {
     };
 
     return (
-    <div className="container mt-4">
-        <div className="input-group mb-3">
+    <div style= {{overflow:'scroll'}} className="innerTab container mt-4">
+        <div className="input-group mb-3" style={{width:'96%', margin:'0px auto'}}>
             <input
             type="text"
             className="form-control"
@@ -49,7 +48,7 @@ const Todo = () => {
             </button>
             </div>
         </div>
-        <div className="list-group" style={{width: '100%'}}>
+        <div className="list-group" style={{width: '96%', margin:'0px auto'}}>
             {tasks && tasks.map((task, index) => (
             <div key={index} className="list-group-item d-flex justify-content-between align-items-center">
                 {task}
