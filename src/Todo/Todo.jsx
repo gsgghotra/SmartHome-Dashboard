@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Todo = () => {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(null);
     const [newTask, setNewTask] = useState('');
 
 // Load tasks from local storage on component mount
@@ -14,7 +14,7 @@ const Todo = () => {
     // Save tasks to local storage whenever tasks change
     useEffect(() => {
         //avoid initial run to update local storage
-        if (tasks.length > 0){
+        if (tasks){
             console.log("Second", tasks)
             localStorage.setItem('tasks', JSON.stringify(tasks));
         }
@@ -50,7 +50,7 @@ const Todo = () => {
             </div>
         </div>
         <div className="list-group" style={{width: '100%'}}>
-            {tasks.map((task, index) => (
+            {tasks && tasks.map((task, index) => (
             <div key={index} className="list-group-item d-flex justify-content-between align-items-center">
                 {task}
                 <button className="btn btn-danger" onClick={() => removeTask(index)}>
