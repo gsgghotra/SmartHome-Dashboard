@@ -7,31 +7,34 @@ import Container from 'react-bootstrap/Container';
 import CurrentTime from './CurrentTime';
 import Header from './Header';
 import HomeControls from './HomeControls';
-import SpotifyPlayer from './Spotify/SpotifyPlayer';
 import Footer from './Footer';
-import Weather from './Weather/Weather';
 import Tabs from './Tabs';
+import './Spotify/SpotifyPlayer.css';
 
 function App() {
-  console.log("App triggered")
   return (
     <div className="App">
       <Header></Header>
       <Container fluid className='mainContainer'>
+
         <Row className='topRow'>
-          {/* Time Column */}
+            {/* Time Column */}
             <CurrentTime></CurrentTime>
-          {/* Home Controls */}
+            {/* Home Controls */}
             <HomeControls></HomeControls>
         </Row>
+
         <Row className='bottomRow'>
-          <Col className='column'>
-            <Tabs></Tabs>
+
+            <Col className='column'>
+              <Tabs></Tabs>
             </Col>
-          <Col className='column'>
-            {/* <MusicPlayer></MusicPlayer> */}
-            {/* <SpotifyPlayer></SpotifyPlayer> */}
-          </Col>
+
+            <Col className='column'>
+              {/* <MusicPlayer></MusicPlayer> */}
+              {/* <SpotifyPlayer></SpotifyPlayer> */}
+            </Col>
+
         </Row>
       </Container>
       <Footer></Footer>

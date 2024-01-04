@@ -3,12 +3,12 @@ import { useState } from "react";
 import Col from 'react-bootstrap/Col';
 
 const CurrentTime =()=> {    
-    const [todaysDate, setTodaysDate] = useState(dayjs().format('ddd, DD MMM YYYY'));
+    const [todaysDate, setTodaysDate] = useState(dayjs().format('ddd, DD MMMM'));
     const [currentTime , setCurrentTime] = useState(dayjs().format('hh : mm'));
 
     setInterval(()=>{
         setCurrentTime(dayjs().format('hh : mm'));
-        setTodaysDate(dayjs().format('ddd, DD MMM YYYY'));
+        setTodaysDate(dayjs().format('ddd, DD MMMM'));
     }, 1);
     return(
         <Col className='column'>
